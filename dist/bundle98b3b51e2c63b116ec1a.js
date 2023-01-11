@@ -1,6 +1,19 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/client/js/app.js":
+/*!******************************!*\
+  !*** ./src/client/js/app.js ***!
+  \******************************/
+/***/ (() => {
+
+var numberfunction = function numberfunction() {
+  console.log(1234567);
+};
+numberfunction();
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/client/styles/main.scss":
 /*!******************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/client/styles/main.scss ***!
@@ -514,20 +527,6 @@ function styleTagTransform(css, styleElement) {
 
 module.exports = styleTagTransform;
 
-/***/ }),
-
-/***/ "./src/client/js/app.js":
-/*!******************************!*\
-  !*** ./src/client/js/app.js ***!
-  \******************************/
-/***/ (() => {
-
-const numberfunction = () => {
-  console.log(1234567);
-}
-
-numberfunction();
-
 /***/ })
 
 /******/ 	});
@@ -616,10 +615,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_client_js_app_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_client_js_app_js__WEBPACK_IMPORTED_MODULE_1__);
 
 
-
 console.log(123);
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle05fb33ffff7615a75e81.js.map
+//# sourceMappingURL=bundle98b3b51e2c63b116ec1a.js.map
