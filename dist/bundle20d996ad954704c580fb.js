@@ -19,6 +19,8 @@ var button = document.querySelector("#button");
 var apiUsername = 'luisdaniel';
 var placeName = document.querySelector("#locationForm");
 var country = document.querySelector("#city");
+var dateForm = document.querySelector("#dateForm");
+var dates = document.querySelector('#dates');
 var fetchGeo = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var response;
@@ -28,7 +30,6 @@ var fetchGeo = /*#__PURE__*/function () {
           _context.prev = 0;
           _context.next = 3;
           return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get("http://api.geonames.org/searchJSON?name=".concat(placeName.value, "&username=").concat(apiUsername)).then(function (apidata) {
-            // console.log(apidata);
             var latitude = apidata.data.geonames[0].lat;
             var longitude = apidata.data.geonames[0].lng;
             var countryName = apidata.data.geonames[0].countryName;
@@ -36,6 +37,15 @@ var fetchGeo = /*#__PURE__*/function () {
             console.log(latitude);
             console.log(longitude);
             console.log(countryName);
+            // console.log(dateForm)
+            // let dateString = dateForm.value;
+            // console.log(dateForm.value)
+            // let targetDate = new Date(dateString);
+            // let currentDate = new Date();
+            // let timeDiff = targetDate.getTime() - currentDate.getTime();
+            // let daysUntilTrip = timeDiff / (1000 * 3600 * 24);
+            // console.log("Days until trip: " + daysUntilTrip)
+            // const tripDate = `Days until trip: ${daysUntilTrip}`
             return response;
           });
         case 3:
@@ -56,9 +66,21 @@ var fetchGeo = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
+var fetchDaysuntilTrip = function fetchDaysuntilTrip() {
+  var dateString = dateForm.value;
+  console.log(dateForm.value);
+  var targetDate = new Date(dateString);
+  var currentDate = new Date();
+  var timeDiff = targetDate.getTime() - currentDate.getTime();
+  var daysUntilTrip = timeDiff / (1000 * 3600 * 24);
+  var roundedDaysUntilTrip = Math.ceil(daysUntilTrip);
+  console.log("Days until trip: " + roundedDaysUntilTrip);
+  dates.innerHTML = "Days until trip: ".concat(roundedDaysUntilTrip);
+};
 button.addEventListener("click", function (e) {
   e.preventDefault();
   fetchGeo();
+  fetchDaysuntilTrip();
 });
 
 /***/ }),
@@ -4696,4 +4718,4 @@ console.log(1);
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle2747ed1723414f9089d9.js.map
+//# sourceMappingURL=bundle20d996ad954704c580fb.js.map
