@@ -15,58 +15,95 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var button = document.querySelector("#button");
-var apiUsername = 'luisdaniel';
-var placeName = document.querySelector("#locationForm");
-var country = document.querySelector("#city");
-var dateForm = document.querySelector("#dateForm");
-var dates = document.querySelector('#dates');
 var fetchGeo = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var response;
+    var apiUsername, placeName, country, response;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _context.next = 3;
+          apiUsername = 'luisdaniel';
+          placeName = document.querySelector("#locationForm");
+          country = document.querySelector("#city");
+          _context.next = 6;
           return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get("http://api.geonames.org/searchJSON?name=".concat(placeName.value, "&username=").concat(apiUsername)).then(function (apidata) {
             var latitude = apidata.data.geonames[0].lat;
             var longitude = apidata.data.geonames[0].lng;
             var countryName = apidata.data.geonames[0].countryName;
             country.innerHTML = "Country: ".concat(countryName);
-            console.log(latitude);
-            console.log(longitude);
-            console.log(countryName);
-            // console.log(dateForm)
-            // let dateString = dateForm.value;
-            // console.log(dateForm.value)
-            // let targetDate = new Date(dateString);
-            // let currentDate = new Date();
-            // let timeDiff = targetDate.getTime() - currentDate.getTime();
-            // let daysUntilTrip = timeDiff / (1000 * 3600 * 24);
-            // console.log("Days until trip: " + daysUntilTrip)
-            // const tripDate = `Days until trip: ${daysUntilTrip}`
-            return response;
+            fetchWeather(latitude, longitude);
           });
-        case 3:
-          response = _context.sent;
-          _context.next = 9;
-          break;
         case 6:
-          _context.prev = 6;
+          response = _context.sent;
+          _context.next = 12;
+          break;
+        case 9:
+          _context.prev = 9;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
-        case 9:
+        case 12:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 6]]);
+    }, _callee, null, [[0, 9]]);
   }));
   return function fetchGeo() {
     return _ref.apply(this, arguments);
   };
 }();
+var fetchWeather = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(latitude, longitude) {
+    var options, dateForm, dateString, date, isoDate, weatherURL, weatherURLkey, response;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.prev = 0;
+          options = {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+          };
+          dateForm = document.querySelector('#dateForm');
+          dateString = dateForm.value;
+          date = new Date(dateString);
+          isoDate = date.toLocaleDateString('en-us', options);
+          console.log(isoDate);
+          weatherURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
+          weatherURLkey = '13452e40883e46dd8937414037e5b0f8';
+          _context2.next = 11;
+          return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get("".concat(weatherURL, "lat=").concat(latitude, "&lon=").concat(longitude, "&key=").concat(weatherURLkey, "&units=I&days=16&valid_date=").concat(isoDate));
+        case 11:
+          response = _context2.sent;
+          console.log(response);
+          _context2.next = 18;
+          break;
+        case 15:
+          _context2.prev = 15;
+          _context2.t0 = _context2["catch"](0);
+          console.log(_context2.t0);
+        case 18:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2, null, [[0, 15]]);
+  }));
+  return function fetchWeather(_x, _x2) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+// const convertDate = () => {
+//   let dateForm = document.querySelector('#dateForm')
+//   let date = dateForm.value; // the date in "MM/DD/YY" format
+//   let parts = date.split("/");
+//   let convertedDate = new Date(parts[2], parts[0] - 1, parts[1]).toISOString().slice(0, 10);
+//   console.log(convertedDate);
+// }
+
+//days until trip, rounded
 var fetchDaysuntilTrip = function fetchDaysuntilTrip() {
+  var dateForm = document.querySelector("#dateForm");
+  var dates = document.querySelector('#dates');
   var dateString = dateForm.value;
   console.log(dateForm.value);
   var targetDate = new Date(dateString);
@@ -74,9 +111,9 @@ var fetchDaysuntilTrip = function fetchDaysuntilTrip() {
   var timeDiff = targetDate.getTime() - currentDate.getTime();
   var daysUntilTrip = timeDiff / (1000 * 3600 * 24);
   var roundedDaysUntilTrip = Math.ceil(daysUntilTrip);
-  console.log("Days until trip: " + roundedDaysUntilTrip);
   dates.innerHTML = "Days until trip: ".concat(roundedDaysUntilTrip);
 };
+var button = document.querySelector("#button");
 button.addEventListener("click", function (e) {
   e.preventDefault();
   fetchGeo();
@@ -4718,4 +4755,4 @@ console.log(1);
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle20d996ad954704c580fb.js.map
+//# sourceMappingURL=bundlef0c7e5f434951c0b3be2.js.map

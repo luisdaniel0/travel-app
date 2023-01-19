@@ -18,7 +18,7 @@ app.use(
 app.use(express.static('dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
+
 
 // Server Setup and Routes
 const port = 8081;
@@ -29,4 +29,3 @@ app.listen(port, function () {
 app.get('/', function (req, res) {
   res.sendFile('dist/index.html');
 });
-
