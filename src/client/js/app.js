@@ -35,6 +35,7 @@ const fetchGeo = async () => {
   }
 }
 
+//days until trip, rounded
 const fetchDaysuntilTrip = () => {
   let dateString = dateForm.value;
   console.log(dateForm.value)
@@ -43,7 +44,7 @@ const fetchDaysuntilTrip = () => {
   let timeDiff = targetDate.getTime() - currentDate.getTime();
   let daysUntilTrip = timeDiff / (1000 * 3600 * 24);
   let roundedDaysUntilTrip = Math.ceil(daysUntilTrip);
-  console.log("Days until trip: " + roundedDaysUntilTrip)
+  
   dates.innerHTML = `Days until trip: ${roundedDaysUntilTrip}`
 
 }
