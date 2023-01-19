@@ -7,6 +7,8 @@ const placeName = document.querySelector("#locationForm");
 const country = document.querySelector("#city");
 const dateForm = document.querySelector("#dateForm");
 const dates = document.querySelector('#dates');
+const weatherURL = 'https://api.weatherbit.io/v2.0/forecast/daily?';
+const weatherURLkey = '13452e40883e46dd8937414037e5b0f8';
 
 const fetchGeo = async () => {
   try {
@@ -28,8 +30,19 @@ const fetchGeo = async () => {
         // let daysUntilTrip = timeDiff / (1000 * 3600 * 24);
         // console.log("Days until trip: " + daysUntilTrip)
         // const tripDate = `Days until trip: ${daysUntilTrip}`
+        fetchWeather(latitude, longitude);
         return response
       })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const fetchWeather = async (latitude, longitude) => {
+  try {
+    const response = await axios.get(`${weatherURL}lat=${latitude}&lon=${longitude}&key=${weatherURLkey}&units=I&days=14 `)
+    console.log(response)
+
   } catch (error) {
     console.log(error);
   }
@@ -44,7 +57,7 @@ const fetchDaysuntilTrip = () => {
   let timeDiff = targetDate.getTime() - currentDate.getTime();
   let daysUntilTrip = timeDiff / (1000 * 3600 * 24);
   let roundedDaysUntilTrip = Math.ceil(daysUntilTrip);
-  
+
   dates.innerHTML = `Days until trip: ${roundedDaysUntilTrip}`
 
 }
@@ -54,6 +67,7 @@ button.addEventListener("click", (e) => {
   e.preventDefault();
   fetchGeo();
   fetchDaysuntilTrip();
+
 })
 
 
